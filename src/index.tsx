@@ -131,9 +131,7 @@ const {
   function createClosure ({ listeners, app }: Instance): Closure {
     return {
       sendData (name: string, payload: any) {
-        if (!app.ports[name]) {
-          console.warn(errors.missingPort(name))
-        } else {
+        if (app.ports[name]) {
           if (listeners[name]) {
             // we know this exists, because it was subscribed
             app.ports[name].unsubscribe!(listeners[name])
